@@ -1,6 +1,4 @@
-# Multia - Marketplace Template
-
-Thank you for buying the Multia Marketplace template!
+# LRVmobile 
 
 ## Features
 
