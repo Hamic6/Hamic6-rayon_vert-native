@@ -1,6 +1,4 @@
-# Multia - Marketplace Template
-
-Thank you for buying the Multia Marketplace template!
+# LRVmobile 
 
 ## Features
 
@@ -27,3 +25,4 @@ npx expo start -c
 ```
 
 "# rayon-vert_mobile" 
+"# Hamic6-rayon_vert-native" 
