@@ -6,8 +6,6 @@ import { View, Text, Pressable, Image } from 'react-native';
 import Icon from '@/components/Icon';
 import useShadow from '@/utils/useShadow';
 import Section from '@/components/layout/Section';
-import { CardScroller } from '@/components/CardScroller';
-import Card from '@/components/Card';
 import ThemedText from '@/components/ThemedText';
 import { Link } from 'expo-router';
 import Avatar from '@/components/Avatar';
@@ -18,71 +16,205 @@ import AnimatedView from '@/components/AnimatedView';
 import { shadowPresets } from '@/utils/useShadow';
 
 const HomeScreen = () => {
+    // Mock data pour le nom d'utilisateur
+    const [userName] = React.useState("Danny Hamici"); // Remplace par le nom que tu veux
     const { headerVisible, scrollHandler } = useCollapsibleHeader();
     const rightComponents = [
         <HeaderIcon key="notifications-icon" hasBadge icon="Bell" href="/screens/notifications" />
     ];
     const middleComponent = [
-        <ThemedText key="app-title" className='text-2xl font-outfit-bold'>
-            Rayon
-            <Text className="text-green-600">vert</Text>
-        </ThemedText>
+        <Image
+            key="logo"
+            source={require('@/assets/lrv.png')}
+            style={{ width: 96, height: 96, resizeMode: 'contain' }}
+        />
     ];
     const leftComponent = [
         <DrawerButton key="drawer-button" />
     ];
 
+    // Section titles with icons
+    const sectionTitles = {
+        "Gestion de Stock": (
+            <View className="flex-row items-center">
+                <Icon name="Box" size={20} color="#0891b2" className="mr-2" />
+                <ThemedText className="text-lg font-bold">Gestion de Stock</ThemedText>
+            </View>
+        ),
+        "Validation": (
+            <View className="flex-row items-center">
+                <Icon name="CheckCircle" size={20} color="#0ea5e9" className="mr-2" />
+                <ThemedText className="text-lg font-bold">Validation</ThemedText>
+            </View>
+        ),
+        "Facturation": (
+            <View className="flex-row items-center">
+                <Icon name="FileText" size={20} color="#f59e42" className="mr-2" />
+                <ThemedText className="text-lg font-bold">Facturation</ThemedText>
+            </View>
+        ),
+        "Fonctionnalités Additionnelles": (
+            <View className="flex-row items-center">
+                <Icon name="UserCheck" size={20} color="#ec4899" className="mr-2" />
+                <ThemedText className="text-lg font-bold">Fonctionnalités Additionnelles</ThemedText>
+            </View>
+        ),
+    };
+
     return (
         <View className="flex-1 bg-light-primary dark:bg-dark-primary">
             <Header
-                
                 leftComponent={leftComponent}
                 rightComponents={rightComponents}
                 middleComponent={middleComponent}
             />
 
-            <ThemeScroller
-            >
+            <ThemeScroller>
                 <AnimatedView animation="scaleIn" className='flex-1'>
                     <View className="mb-6 px-2">
-                        <ThemedText className="text-xl font-semibold mb-2">
-                            Bienvenue sur l'application mobile Rayon vert!
-                        </ThemedText>
-                        <ThemedText className="text-base text-light-subtext dark:text-dark-subtext">
-                            Gérez le stock, validez les commandes, suivez la facturation et accédez à des fonctionnalités avancées.
+                        <ThemedText className="text-xl font-semibold mb-2 text-center">
+                            Bienvenue {userName} !
                         </ThemedText>
                     </View>
                     <View>
-                        <Section title="Gestion de Stock" titleSize="lg">
-                            <CardScroller space={5} className='mt-1'>
-                                <CategorySelect bg="bg-teal-600" icon="Box" title="Suivi des Inventaires : Ajouter, modifier et supprimer des articles." />
-                                <CategorySelect bg="bg-orange-600" icon="AlertCircle" title="Alertes de Stock : Notifications pour les niveaux de stock bas." />
-                                <CategorySelect bg="bg-purple-600" icon="History" title="Historique des Mouvements : Suivi des entrées et sorties de stock." />
-                            </CardScroller>
+                        <Section title={sectionTitles["Gestion de Stock"]} titleSize="lg">
+                            <View className="w-full flex-col p-6 rounded-2xl bg-teal-600 shadow-lg mb-4">
+                                <View className="flex-row items-center mb-4">
+                                    <Icon name="Box" size={28} color="#fff" className="mr-3" />
+                                    <ThemedText
+                                        className="text-xs font-medium text-white flex-1"
+                                        numberOfLines={2}
+                                        ellipsizeMode="tail"
+                                    >
+                                        Suivi des Inventaires : Ajouter, modifier et supprimer des articles.
+                                    </ThemedText>
+                                </View>
+                                <View className="flex-row items-center mb-4">
+                                    <Icon name="AlertCircle" size={28} color="#fff" className="mr-3" />
+                                    <ThemedText
+                                        className="text-xs font-medium text-white flex-1"
+                                        numberOfLines={2}
+                                        ellipsizeMode="tail"
+                                    >
+                                        Alertes de Stock : Notifications pour les niveaux de stock bas.
+                                    </ThemedText>
+                                </View>
+                                <View className="flex-row items-center">
+                                    <Icon name="History" size={28} color="#fff" className="mr-3" />
+                                    <ThemedText
+                                        className="text-xs font-medium text-white flex-1"
+                                        numberOfLines={2}
+                                        ellipsizeMode="tail"
+                                    >
+                                        Historique des Mouvements : Suivi des entrées et sorties de stock.
+                                    </ThemedText>
+                                </View>
+                            </View>
                         </Section>
 
-                        <Section title="Validation" titleSize="lg" className='pt-10'>
-                            <CardScroller space={5} className='mt-1 pb-4'>
-                                <CategorySelect bg="bg-sky-600" icon="CheckCircle" title="Validation des Commandes : Processus de validation avant expédition." />
-                                <CategorySelect bg="bg-lime-600" icon="ShieldCheck" title="Contrôle de Qualité : Vérification des articles avant validation finale." />
-                                <CategorySelect bg="bg-pink-600" icon="RotateCcw" title="Gestion des Retours : Processus de retour et validation des articles retournés." />
-                            </CardScroller>
+                        <Section title={sectionTitles["Validation"]} titleSize="lg" className='pt-10'>
+                            <View className="w-full flex-col p-6 rounded-2xl bg-sky-600 shadow-lg mb-4">
+                                <View className="flex-row items-center mb-4">
+                                    <Icon name="CheckCircle" size={28} color="#fff" className="mr-3" />
+                                    <ThemedText
+                                        className="text-xs font-medium text-white flex-1"
+                                        numberOfLines={2}
+                                        ellipsizeMode="tail"
+                                    >
+                                        Validation des Commandes : Processus de validation avant expédition.
+                                    </ThemedText>
+                                </View>
+                                <View className="flex-row items-center mb-4">
+                                    <Icon name="ShieldCheck" size={28} color="#fff" className="mr-3" />
+                                    <ThemedText
+                                        className="text-xs font-medium text-white flex-1"
+                                        numberOfLines={2}
+                                        ellipsizeMode="tail"
+                                    >
+                                        Contrôle de Qualité : Vérification des articles avant validation finale.
+                                    </ThemedText>
+                                </View>
+                                <View className="flex-row items-center">
+                                    <Icon name="RotateCcw" size={28} color="#fff" className="mr-3" />
+                                    <ThemedText
+                                        className="text-xs font-medium text-white flex-1"
+                                        numberOfLines={2}
+                                        ellipsizeMode="tail"
+                                    >
+                                        Gestion des Retours : Processus de retour et validation des articles retournés.
+                                    </ThemedText>
+                                </View>
+                            </View>
                         </Section>
 
-                        <Section title="Facturation" titleSize="lg" className='pt-10'>
-                            <CardScroller space={5} className='mt-1 pb-4'>
-                                <CategorySelect bg="bg-orange-600" icon="FileText" title="Génération de Factures : Création automatique pour les commandes validées." />
-                                <CategorySelect bg="bg-teal-600" icon="CreditCard" title="Suivi des Paiements : Enregistrement des paiements reçus et en attente." />
-                                <CategorySelect bg="bg-purple-600" icon="BarChart2" title="Rapports Financiers : Génération de rapports pour le suivi des ventes et paiements." />
-                            </CardScroller>
+                        <Section title={sectionTitles["Facturation"]} titleSize="lg" className='pt-10'>
+                            <View className="w-full flex-col p-6 rounded-2xl bg-orange-600 shadow-lg mb-4">
+                                <View className="flex-row items-center mb-4">
+                                    <Icon name="FileText" size={28} color="#fff" className="mr-3" />
+                                    <ThemedText
+                                        className="text-xs font-medium text-white flex-1"
+                                        numberOfLines={2}
+                                        ellipsizeMode="tail"
+                                    >
+                                        Génération de Factures : Création automatique pour les commandes validées.
+                                    </ThemedText>
+                                </View>
+                                <View className="flex-row items-center mb-4">
+                                    <Icon name="CreditCard" size={28} color="#fff" className="mr-3" />
+                                    <ThemedText
+                                        className="text-xs font-medium text-white flex-1"
+                                        numberOfLines={2}
+                                        ellipsizeMode="tail"
+                                    >
+                                        Suivi des Paiements : Enregistrement des paiements reçus et en attente.
+                                    </ThemedText>
+                                </View>
+                                <View className="flex-row items-center">
+                                    <Icon name="BarChart2" size={28} color="#fff" className="mr-3" />
+                                    <ThemedText
+                                        className="text-xs font-medium text-white flex-1"
+                                        numberOfLines={2}
+                                        ellipsizeMode="tail"
+                                    >
+                                        Rapports Financiers : Génération de rapports pour le suivi des ventes et paiements.
+                                    </ThemedText>
+                                </View>
+                            </View>
                         </Section>
 
-                        <Section title="Fonctionnalités Additionnelles" titleSize="lg" className='pt-10'>
-                            <CardScroller space={5} className='mt-1 pb-4'>
-                                <CategorySelect bg="bg-sky-600" icon="UserCheck" title="Authentification des Utilisateurs : Connexion sécurisée." />
-                                <CategorySelect bg="bg-pink-600" icon="Bell" title="Notifications Push : Alertes pour les mises à jour importantes." />
-                                <CategorySelect bg="bg-lime-600" icon="ShoppingCart" title="Intégration de Paiements : Paiement en ligne pour les clients." />
-                            </CardScroller>
+                        <Section title={sectionTitles["Fonctionnalités Additionnelles"]} titleSize="lg" className='pt-10'>
+                            <View className="w-full flex-col p-6 rounded-2xl bg-pink-600 shadow-lg mb-4">
+                                <View className="flex-row items-center mb-4">
+                                    <Icon name="UserCheck" size={28} color="#fff" className="mr-3" />
+                                    <ThemedText
+                                        className="text-xs font-medium text-white flex-1"
+                                        numberOfLines={2}
+                                        ellipsizeMode="tail"
+                                    >
+                                        Authentification des Utilisateurs : Connexion sécurisée.
+                                    </ThemedText>
+                                </View>
+                                <View className="flex-row items-center mb-4">
+                                    <Icon name="Bell" size={28} color="#fff" className="mr-3" />
+                                    <ThemedText
+                                        className="text-xs font-medium text-white flex-1"
+                                        numberOfLines={2}
+                                        ellipsizeMode="tail"
+                                    >
+                                        Notifications Push : Alertes pour les mises à jour importantes.
+                                    </ThemedText>
+                                </View>
+                                <View className="flex-row items-center">
+                                    <Icon name="ShoppingCart" size={28} color="#fff" className="mr-3" />
+                                    <ThemedText
+                                        className="text-xs font-medium text-white flex-1"
+                                        numberOfLines={2}
+                                        ellipsizeMode="tail"
+                                    >
+                                        Intégration de Paiements : Paiement en ligne pour les clients.
+                                    </ThemedText>
+                                </View>
+                            </View>
                         </Section>
                     </View>
                 </AnimatedView>

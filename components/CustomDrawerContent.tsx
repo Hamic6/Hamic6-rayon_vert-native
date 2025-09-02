@@ -1,6 +1,6 @@
 import { Link, router } from 'expo-router';
 import React, { useState } from 'react';
-import { View, Pressable } from 'react-native';
+import { View, Pressable, Image } from 'react-native';
 import ThemedText from './ThemedText';
 import Icon, { IconName } from './Icon';
 import ThemeToggle from '@/components/ThemeToggle';
@@ -74,14 +74,19 @@ export default function CustomDrawerContent() {
 
     return (
         <ThemedScroller className="flex-1 p-8 bg-white dark:bg-dark-primary" style={{ paddingTop: insets.top }}>
-            <ThemedText className='text-2xl font-outfit-bold mb-8 mt-4'>Rayon vert</ThemedText>
-            <View className='flex-col pb-6 mb-6 mt-10 border-b border-light-secondary dark:border-dark-secondary'>
+            <View style={{ alignItems: 'flex-start', marginBottom: 8, marginTop: 4 }}>
+                <Image
+                    source={require('@/assets/lrv.png')}
+                    style={{ width: 64, height: 64, resizeMode: 'contain' }}
+                />
+            </View>
+            <View className='flex-col pb-4 mb-2 mt-2 border-b border-light-secondary dark:border-dark-secondary'>
                 {dashboardItems.map(item => (
                     <NavItem key={item.href} {...item} />
                 ))}
             </View>
             <View className='flex-row justify-between items-center'>    
-                <ThemedText className='text-sm text-light-subtext dark:text-dark-subtext'>Version 1.0.0</ThemedText>
+                <ThemedText className='text-sm text-light-subtext dark:text-dark-subtext'>Menu principale</ThemedText>
                 <ThemeToggle />
             </View>
         </ThemedScroller>
